@@ -1,0 +1,38 @@
+mkdir -p ~/bin && cat > ~/bin/raychd << 'EOF'
+#!/data/data/com.termux/files/usr/bin/bash
+# raychd - Ray Charl daemon starter powered by CharlesRay
+
+INSPIRCD_DIR="$HOME/raychd/inspircd"
+
+case "$1" in
+  start|"")
+    echo "👁️👄👁️ Starting Ray Charl + CharlesRay..."
+    cd "$INSPIRCD_DIR" || { echo "Fahhhh: Ray Charl not found at $INSPIRCD_DIR"; exit 1; }
+    
+    if ./inspircd status >/dev/null 2>&1; then
+        echo "CharlesRay already meowing on :6667"
+    else
+        ./inspircd start && echo "meow: Ray Charl online on 192.168.88.139:6667"
+    fi
+    ;;
+  stop)
+    echo "Stopping Ray Charl... Fahhhh"
+    cd "$INSPIRCD_DIR" && ./inspircd stop
+    ;;
+  status)
+    cd "$INSPIRCD_DIR" && ./inspircd status
+    ;;
+  logs)
+    tail -f "$INSPIRCD_DIR/run/logs/ircd.log"
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "Usage: raychd {start|stop|status|logs|restart}"
+    echo "No irssi. Just CharlesRay."
+    ;;
+esac
+

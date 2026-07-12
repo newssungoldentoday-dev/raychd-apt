@@ -1,0 +1,6 @@
+Package: raychd-irc
+Version: 1.0.0
+Architecture: aarch64
+Maintainer: Lead Developer <newssungoldentoday@gmail.com>
+Description: Modular IRC engine inspired by InspIRCd.
+Depends: bash

@@ -1,0 +1,41 @@
+0&&<<''; # this PGP-signed message is also valid perl
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+# CHECKSUMS file written on Thu May 18 22:50:47 2023 GMT by CPAN::Checksums (v2.13)
+$cksum = {
+  'Locale-gettext-1.07.meta' => {
+    'cpan_path' => 'P/PV/PVANDRY',
+    'md5' => 'f3dabe4875072cce154179e235baa4e5',
+    'mtime' => '2015-09-28',
+    'sha256' => '5f6b9d89c75f9c9c5a0e68f44c7c3bcb4df243e0196b7db403a5dfcd86b979f6',
+    'size' => 1037
+  },
+  'Locale-gettext-1.07.tar.gz' => {
+    'cpan_path' => 'P/PV/PVANDRY',
+    'md5' => 'bc652758af65c24500f1d06a77415019',
+    'md5-ungz' => '65c11e2973ebfc2da3d83cece0ea6eaa',
+    'mtime' => '2015-09-28',
+    'sha256' => '909d47954697e7c04218f972915b787bd1244d75e3bd01620bc167d5bbc49c15',
+    'sha256-ungz' => 'e52bb01c7dda3f2f54a7f6178a47b6812645bf334b393991e22bcda9a3838b7f',
+    'size' => 8651
+  }
+};
+__END__
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.14 (GNU/Linux)
+
+iQIcBAEBAgAGBQJkZqvHAAoJEOJHMplI6oOA1fIP/3m7OxG4WCHA6tLFtjKQdvak
+/OJm5yjMFh+N5U5YYoE4eFxwsfjFL8TUhfrdyTaVm24lFd3LNF+IxkCt3Qul0RYR
+axceSB7c3TShOUdHrL7E9oka2JcqIvYgX9bDpXbQ/gmc/y3tPWYlJCcWGHW5eeqw
+UK1tTvoxmFqAReKVRdsHX7Xc/yAWMnFP8yP0JYkPESlb0/T4Sxdq81mDbN97yxzm
+V5f9kmvS3q7bAWAtv2+yxBEetekjzTnBVQ107LjwXYxOeCFg+wyMj/5P205ChsU5
+c7lgss/vAzhyVl5xP6KiL8nTUVsrX4/x2iwGVDlOkcUlhW92Z3eG0bz/6dRe1krI
+vyHAl3FlgY2AVSMsq4rGOZLL1alaLO5Jf/cBHfcobu04tMhD/R/wbSrG6xQRBFNS
+5MHynUEMTlFxrbO+1vK0HEG6u5CbkqFteGkbJM+cv0nhblC+17otnFo6JwN0VJ/5
+BZlnWVgp1qLyacag1rIvf687Lp1FMmIdDfEwNtcR24NkINpDCeO4X5sX0Zadx4UJ
+ZgYXATkKZRSMJGhUaaqWW5jQgaGA0Pw2uEq1DX9fr8ODUec5g9q0OVBl6K6cEwOL
+3feP7JmM7cLescuCQmnDo7uIyrNQM/2myctLAzJtMr0PwJaaqNqnocwHzmeUD+zN
+WU4DNhkVlEpVgtmCrV9z
+=2+AR
+-----END PGP SIGNATURE-----

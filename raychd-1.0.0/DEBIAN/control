@@ -1,0 +1,6 @@
+Package: raychd
+Version: 1.0.0
+Architecture: aarch64
+Maintainer: BlueBixt newssungoldentoday@gmail.com
+Description: A short description of what your package does
+Depends: bash

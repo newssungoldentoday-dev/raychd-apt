@@ -1,0 +1,12 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+echo "Starting raychd-irc engine..."
+CONFIG_FILE="/data/data/com.termux/files/usr/share/raychd/conf/ircd.conf"
+
+if [ -f "$CONFIG_FILE" ]; then
+    echo "Loading configuration from $CONFIG_FILE"
+else
+    echo "Warning: No config file found at $CONFIG_FILE"
+fi
+
+echo "Engine initialized. Ready to load modules."

@@ -1,0 +1,7 @@
+Package: raychd-irc
+Version: 1.0.0
+Architecture: aarch64
+Maintainer: Lead Developer <newssungoldentoday@gmail.com>
+Description: InspIRCd-inspired modular IRC engine for Termux
+Depends: bash, python
+
