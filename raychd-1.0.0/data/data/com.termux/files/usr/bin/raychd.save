@@ -1,3 +1,25 @@
 #!/data/data/com.termux/files/usr/bin/bash
-echo "Hello from raychd!"
+
+# --- Raychd IRC Client ---
+# Premium Infrastructure for RAY CHAD
+# -------------------------
+
+echo "--- Raychd IRC Setup ---"
+read -p "Enter your Nickname: " NICK
+read -p "Enter Server Address (e.g., irc.freenode.net): " SERVER
+read -p "Enter Channel (e.g., #raychd-dev): " CHANNEL
+PORT=6667
+
+echo "Connecting to $SERVER as $NICK..."
+
+# Use netcat to communicate with the IRC server
+(
+  echo "NICK $NICK"
+  echo "USER $NICK 0 * :Raychd IRC Client"
+  echo "JOIN $CHANNEL"
+  
+  # Keep the connection open for chat
+  cat
+) | nc $SERVER $PORT
+
 
