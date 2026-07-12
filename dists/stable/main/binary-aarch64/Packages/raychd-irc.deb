@@ -1,0 +1,10 @@
+Package: raychd-irc
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: aarch64
+Maintainer: newssungoldentoday-dev
+Description: Ray Chad IRC Client
+Filename: ./raychd-irc.deb
+Size: 12345
+MD5sum: 00000000000000000000000000000000
