@@ -6,5 +6,5 @@ Architecture: aarch64
 Maintainer: newssungoldentoday-dev
 Description: Ray Chad IRC Client
 Filename: ./raychd-irc.deb
-Size: 12345
-MD5sum: 00000000000000000000000000000000
+Size: 856
+MD5sum: f4499461b651cbd939a98b7b310eb4c5
