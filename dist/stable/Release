@@ -1,0 +1,8 @@
+Origin: Ray Chad PKG
+Label: Ray Chad PKG
+Suite: stable
+Codename: stable
+Architectures: aarch64
+Components: main
+Description: APT repository for Ray Chad IRC Client
+Date: Sun, 12 Jul 2026 07:00:00 UTC
