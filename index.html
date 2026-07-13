@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>raychd-apt — APT Repository for Ray Chad</title>
+<style>
+  :root{
+    --bg:#0a0e0c;
+    --bg2:#0f1512;
+    --panel:#111815;
+    --green:#39ff88;
+    --green-dim:#1f7a4a;
+    --text:#c9d6cf;
+    --muted:#6d8478;
+    --border:#1d2b23;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'JetBrains Mono','Courier New',monospace;
+    line-height:1.6;
+  }
+  a{color:var(--green);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  header{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:20px 40px;border-bottom:1px solid var(--border);
+    position:sticky;top:0;background:rgba(10,14,12,0.9);backdrop-filter:blur(6px);
+    flex-wrap:wrap;gap:12px;
+  }
+  .logo{font-weight:bold;color:var(--green);font-size:1.1rem}
+  .logo span{color:var(--muted)}
+  nav a{margin-left:24px;color:var(--muted);font-size:0.9rem}
+  nav a:hover{color:var(--green)}
+
+  .tag{
+    display:inline-block;color:var(--green-dim);border:1px solid var(--green-dim);
+    padding:4px 10px;border-radius:20px;font-size:0.75rem;margin-bottom:20px;
+  }
+
+  main{max-width:900px;margin:0 auto;padding:60px 24px}
+
+  h1{font-size:2.2rem;color:#fff;margin-bottom:16px;line-height:1.3}
+  h1 .accent{color:var(--green)}
+  .sub{color:var(--muted);max-width:600px;margin-bottom:32px}
+
+  .btns{display:flex;gap:16px;margin-bottom:50px;flex-wrap:wrap}
+  .btn{
+    padding:12px 22px;border-radius:6px;font-size:0.9rem;font-weight:bold;
+  }
+  .btn.primary{background:var(--green);color:#001b0d}
+  .btn.primary:hover{background:#5cffa3;text-decoration:none}
+  .btn.secondary{border:1px solid var(--border);color:var(--text)}
+  .btn.secondary:hover{border-color:var(--green);text-decoration:none}
+
+  .terminal{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    overflow:hidden;margin-bottom:60px;
+  }
+  .terminal-bar{
+    background:#0d1310;padding:10px 14px;display:flex;gap:8px;border-bottom:1px solid var(--border);
+  }
+  .dot{width:11px;height:11px;border-radius:50%}
+  .dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+  .terminal-body{padding:20px;font-size:0.85rem;color:#9fd6b4}
+  .terminal-body .muted{color:var(--muted)}
+  .terminal-body .prompt{color:var(--green)}
+
+  section{margin-bottom:60px}
+  .eyebrow{color:var(--green-dim);font-size:0.8rem;letter-spacing:1px;margin-bottom:8px}
+  h2{color:#fff;font-size:1.5rem;margin-bottom:30px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .card{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:20px;
+  }
+  .card .icon{font-size:1.4rem;margin-bottom:10px}
+  .card h3{color:#fff;font-size:1rem;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:0.85rem}
+
+  .code-block{
+    background:var(--panel);border:1px solid var(--border);border-radius:6px;
+    padding:16px;margin:10px 0;font-size:0.85rem;overflow-x:auto;color:#9fd6b4;
+  }
+  .code-block .comment{color:var(--muted)}
+
+  footer{
+    border-top:1px solid var(--border);padding:30px 24px;text-align:center;
+    color:var(--muted);font-size:0.8rem;
+  }
+  footer a{margin:0 6px;color:var(--muted)}
+  footer a:hover{color:var(--green)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">raychd<span>-apt</span></div>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#install">Install</a>
+    <a href="https://github.com/newssungoldentoday-dev/raychd">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <span class="tag">APT · Debian/Ubuntu · Termux-friendly</span>
+  <h1>Install Ray Chad with <span class="accent">one apt command.</span></h1>
+  <p class="sub">raychd-apt is the official APT repository for Ray Chad. Add the repo, run apt install, and you're connected — no manual builds, no dependency chasing.</p>
+
+  <div class="btns">
+    <a class="btn primary" href="#install">Get Started</a>
+    <a class="btn secondary" href="https://github.com/newssungoldentoday-dev/raychd">View on GitHub →</a>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <span style="margin-left:10px;color:var(--muted);font-size:0.8rem">raychd-apt — install session</span>
+    </div>
+    <div class="terminal-body">
+      <div><span class="prompt">$</span> curl -fsSL https://raychd.ddns.net/apt/gpg.key | sudo apt-key add -</div>
+      <div class="muted">Adding GPG key... OK</div>
+      <div style="margin-top:8px"><span class="prompt">$</span> echo "deb https://raychd.ddns.net/apt stable main" | sudo tee /etc/apt/sources.list.d/raychd.list</div>
+      <div class="muted">Repository added.</div>
+      <div style="margin-top:8px"><span class="prompt">$</span> sudo apt update && sudo apt install raychd</div>
+      <div class="muted">Reading package lists... Done</div>
+      <div class="muted">Setting up raychd (1.0.0) ...</div>
+      <div style="margin-top:8px"><span class="prompt">$</span> raychd --version</div>
+      <div>ray#chad v1.0.0 — ready.</div>
+    </div>
+  </div>
+
+  <section id="features">
+    <div class="eyebrow">// features</div>
+    <h2>Packaged the right way.</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">📦</div>
+        <h3>Native .deb Packages</h3>
+        <p>Proper Debian packaging — clean installs, uninstalls, and upgrades via apt.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔑</div>
+        <h3>GPG-Signed Repo</h3>
+        <p>All packages are signed. Verify authenticity before every install.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔄</div>
+        <h3>Auto Updates</h3>
+        <p>Get new Ray Chad releases the same way you update any system package.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📱</div>
+        <h3>Termux Compatible</h3>
+        <p>Works on Android via Termux — no computer required to install or update.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🐧</div>
+        <h3>Debian &amp; Ubuntu Ready</h3>
+        <p>Tested across common Debian-based distros for consistent behavior.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📜</div>
+        <h3>Open Source</h3>
+        <p>Repo tooling and package specs are Apache-2.0, same as Ray Chad itself.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="eyebrow">// quick start</div>
+    <h2>Up in 3 commands.</h2>
+    <div class="code-block"><span class="comment"># Add the GPG key</span><br>curl -fsSL https://raychd.ddns.net/apt/gpg.key | sudo apt-key add -</div>
+    <div class="code-block"><span class="comment"># Add the repository</span><br>echo "deb https://raychd.ddns.net/apt stable main" | sudo tee /etc/apt/sources.list.d/raychd.list</div>
+    <div class="code-block"><span class="comment"># Update and install</span><br>sudo apt update && sudo apt install raychd</div>
+  </section>
+</main>
+
+<footer>
+  ray#chad-apt — APT Repository © 2026 BlueBixt Developers<br><br>
+  <a href="https://newssungoldentoday-dev.github.io/raychd-docs/">Docs</a> ·
+  <a href="https://newssungoldentoday-dev.github.io/raychd-forum/">Forum</a> ·
+  <a href="https://github.com/newssungoldentoday-dev/raychd">GitHub</a> ·
+  <a href="https://github.com/newssungoldentoday-dev/raychd/blob/main/LICENSE">Apache-2.0</a>
+</footer>
+
+</body>
+  </html>
