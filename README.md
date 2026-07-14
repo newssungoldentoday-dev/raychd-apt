@@ -10,8 +10,7 @@
 `raychd-apt` is a foundational component of the broader ecosystem. Developed for high-frequency performance and seamless integration, this repository serves as a critical node in the development chain.
 
 ## 📁 Technical Specifications
-* **System Focus:** Backend infrastructure and package management.
-* **Theme:** Premium Black & Gold.
+* **System Focus:** Backend infrastructure and package management
 * **Integrations:** Fully compatible with Firebase architecture.
 
 ## 🚀 Installation Guide
