@@ -1,0 +1,169 @@
+#!/usr/bin/env bash
+#
+# raychd-client.sh — minimal IRC client for Ray Chad
+# Dependency-free: uses bash's built-in /dev/tcp, no netcat/curl required.
+# Works on Termux, macOS, and Linux.
+#
+# Usage:
+#   ./raychd-client.sh <server> <port> <nickname> [#channel]
+#
+# Example:
+#   ./raychd-client.sh irc.raychad.local 6667 blue #general
+#
+# In-session commands (type at the prompt):
+#   /join #channel          join a channel
+#   /part #channel [msg]    leave a channel
+#   /msg <target> <text>    send a message to a channel or user
+#   /me <text>              send an action to the current channel
+#   /nick <newnick>         change your nickname
+#   /raw <text>             send a raw IRC line to the server
+#   /quit [msg]             disconnect and exit
+#   /help                   show this list again
+#
+# Anything typed without a leading "/" is sent as a PRIVMSG to the
+# most recently joined channel.
+
+set -u
+
+SERVER="${1:-}"
+PORT="${2:-}"
+NICK="${3:-}"
+INIT_CHANNEL="${4:-}"
+
+if [ -z "$SERVER" ] || [ -z "$PORT" ] || [ -z "$NICK" ]; then
+    echo "Usage: $0 <server> <port> <nickname> [#channel]"
+    exit 1
+fi
+
+CURRENT_CHANNEL="$INIT_CHANNEL"
+FD=3
+
+# --- connect ---------------------------------------------------------------
+echo "Connecting to $SERVER:$PORT as $NICK ..."
+exec 3<>"/dev/tcp/$SERVER/$PORT" || {
+    echo "Failed to connect to $SERVER:$PORT"
+    exit 1
+}
+
+send_raw() {
+    printf '%s\r\n' "$1" >&$FD
+}
+
+# --- registration ------------------------------------------------------------
+send_raw "NICK $NICK"
+send_raw "USER $NICK 0 * :$NICK (raychd-client)"
+
+# --- background reader: prints incoming server lines, auto-answers PING ----
+reader() {
+    while IFS= read -r line <&$FD; do
+        line="${line%$'\r'}"
+        case "$line" in
+            PING*)
+                token="${line#PING }"
+                send_raw "PONG $token"
+                ;;
+            *)
+                echo "$line"
+                ;;
+        esac
+    done
+}
+reader &
+READER_PID=$!
+
+cleanup() {
+    send_raw "QUIT :raychd-client disconnecting"
+    kill "$READER_PID" 2>/dev/null
+    exec 3<&- 3>&-
+}
+trap cleanup EXIT INT TERM
+
+# --- join initial channel if given -----------------------------------------
+if [ -n "$INIT_CHANNEL" ]; then
+    sleep 1
+    send_raw "JOIN $INIT_CHANNEL"
+fi
+
+print_help() {
+    cat <<'EOF'
+Commands:
+  /join #channel          join a channel
+  /part #channel [msg]    leave a channel
+  /msg <target> <text>    send a message to a channel or user
+  /me <text>              send an action to the current channel
+  /nick <newnick>         change your nickname
+  /raw <text>             send a raw IRC line
+  /quit [msg]             disconnect and exit
+  /help                   show this list
+Anything without a leading "/" is sent to the current channel.
+EOF
+}
+
+echo "Connected. Type /help for commands."
+
+# --- main input loop ---------------------------------------------------------
+while IFS= read -r input; do
+    [ -z "$input" ] && continue
+
+    case "$input" in
+        /join\ *)
+            chan="${input#/join }"
+            send_raw "JOIN $chan"
+            CURRENT_CHANNEL="$chan"
+            ;;
+        /part\ *)
+            rest="${input#/part }"
+            chan="${rest%% *}"
+            msg="${rest#"$chan"}"
+            msg="${msg# }"
+            if [ -n "$msg" ] && [ "$msg" != "$chan" ]; then
+                send_raw "PART $chan :$msg"
+            else
+                send_raw "PART $chan"
+            fi
+            ;;
+        /msg\ *)
+            rest="${input#/msg }"
+            target="${rest%% *}"
+            text="${rest#"$target" }"
+            send_raw "PRIVMSG $target :$text"
+            ;;
+        /me\ *)
+            text="${input#/me }"
+            if [ -n "$CURRENT_CHANNEL" ]; then
+                send_raw "PRIVMSG $CURRENT_CHANNEL :$(printf '\001ACTION %s\001' "$text")"
+            else
+                echo "No current channel. Use /join #channel first."
+            fi
+            ;;
+        /nick\ *)
+            newnick="${input#/nick }"
+            send_raw "NICK $newnick"
+            NICK="$newnick"
+            ;;
+        /raw\ *)
+            send_raw "${input#/raw }"
+            ;;
+        /quit)
+            exit 0
+            ;;
+        /quit\ *)
+            msg="${input#/quit }"
+            send_raw "QUIT :$msg"
+            exit 0
+            ;;
+        /help)
+            print_help
+            ;;
+        /*)
+            echo "Unknown command: $input (try /help)"
+            ;;
+        *)
+            if [ -n "$CURRENT_CHANNEL" ]; then
+                send_raw "PRIVMSG $CURRENT_CHANNEL :$input"
+            else
+                echo "No current channel. Use /join #channel or /msg <target> <text>."
+            fi
+            ;;
+    esac
+done
