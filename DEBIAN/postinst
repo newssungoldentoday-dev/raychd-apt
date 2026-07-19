@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+echo "raychd installed."
+echo "Run 'raychd <server> <port> <nickname> [#channel]' to connect."
+echo "Run 'raychd-command' to see the full command reference."
+
+exit 0
